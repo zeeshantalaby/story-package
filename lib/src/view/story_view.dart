@@ -113,7 +113,7 @@ class _StoryViewState extends State<StoryView> {
 
   void _handleDragUpdate(DragUpdateDetails details) {
     if (_isAnimating) return;
-    final delta = -details.primaryDelta!;
+    final delta = details.primaryDelta!;
     final cont = _provider!.controller;
     final pageCont = cont.storyController!;
 
@@ -127,7 +127,7 @@ class _StoryViewState extends State<StoryView> {
         return;
       }
 
-      _delta += delta;
+      _delta -= delta;
       pageCont.jumpTo(-delta + pageCont.position.pixels);
       final width = _key.currentContext!.size!.width;
       if (_delta.abs() < width * .2) cont.resume();
