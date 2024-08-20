@@ -127,8 +127,8 @@ class _StoryViewState extends State<StoryView> {
         return;
       }
 
-      _delta -= delta;
-      pageCont.jumpTo(-delta + pageCont.position.pixels);
+      _delta += delta;
+      pageCont.jumpTo(-delta - pageCont.position.pixels);
       final width = _key.currentContext!.size!.width;
       if (_delta.abs() < width * .2) cont.resume();
     } else if (_event == StoryEvent.close) {
