@@ -59,9 +59,9 @@ class _StoryViewState extends State<StoryView> {
           );
         },
         child: GestureDetector(
-          onHorizontalDragUpdate: _handleDragUpdate,
-          onHorizontalDragEnd: _handleDragEnd,
-          onHorizontalDragCancel: _resetParams,
+          // onHorizontalDragUpdate: _handleDragUpdate,
+          // onHorizontalDragEnd: _handleDragEnd,
+          // onHorizontalDragCancel: _resetParams,
           child: PageView.builder(
             allowImplicitScrolling: _provider!.preloadStory,
             physics: const NeverScrollableScrollPhysics(),
