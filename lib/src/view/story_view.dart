@@ -44,6 +44,9 @@ class _StoryViewState extends State<StoryView> {
     super.dispose();
   }
 
+  double _dragStartX = 0.0;
+  double _dragEndX = 0.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,9 +62,59 @@ class _StoryViewState extends State<StoryView> {
           );
         },
         child: GestureDetector(
-          onHorizontalDragUpdate: _handleDragUpdate,
-          onHorizontalDragEnd: _handleDragEnd,
-          onHorizontalDragCancel: _resetParams,
+          ///Latest
+          onHorizontalDragStart: (details) {
+            _dragStartX = details.globalPosition.dx;
+          },
+          onHorizontalDragUpdate: (details) {
+            _dragEndX = details.globalPosition.dx;
+          },
+          onHorizontalDragEnd: (details) {
+            double dragDistance = _dragEndX - _dragStartX;
+            TextDirection textDirection = Directionality.of(context);
+
+            if (textDirection == TextDirection.rtl) {
+              dragDistance = -dragDistance;
+            }
+
+            if (dragDistance > 50) {
+              if (_provider!.controller.storyController!.page! == 0) {
+                log("0 page ===> ");
+                _provider!.controller.resume();
+              }
+              /// Go to previous page
+              if (_provider!.controller.storyController!.page! > 0) {
+                _provider!.controller.storyController!.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              }
+            } else if (dragDistance < -50) {
+              /// Go to next page
+              if (_provider!.controller.storyController!.page! < 2) {
+                _provider!.controller.storyController!.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              } else {
+                /// Exit the Story when the last page is reached
+                Navigator.of(context).pop();
+              }
+            } else {
+              /// Return to the current page
+              _provider!.controller.storyController!.animateToPage(
+                _provider!.controller.storyController!.page!.round(),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+              _provider!.controller.resume();
+            }
+          },
+
+          ///Old code
+          // onHorizontalDragUpdate: _handleDragUpdate,
+          // onHorizontalDragEnd: _handleDragEnd,
+          // onHorizontalDragCancel: _resetParams,
           child: PageView.builder(
             allowImplicitScrolling: _provider!.preloadStory,
             physics: const NeverScrollableScrollPhysics(),
