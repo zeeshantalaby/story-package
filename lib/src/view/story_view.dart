@@ -79,7 +79,6 @@ class _StoryViewState extends State<StoryView> {
 
             if (dragDistance > 50) {
               if (_provider!.controller.storyController!.page! == 0) {
-                log("0 page ===> ");
                 _provider!.controller.resume();
               }
               /// Go to previous page
