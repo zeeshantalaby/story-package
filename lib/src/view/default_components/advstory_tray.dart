@@ -12,7 +12,7 @@ class AdvStoryTray extends AnimatedTray {
   ///
   /// [borderRadius] sets tray and image border shape.
   AdvStoryTray({
-    super.key,
+  
     required this.url,
     required this.index,
     this.customWidget,
