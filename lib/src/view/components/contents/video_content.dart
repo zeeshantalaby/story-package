@@ -84,11 +84,13 @@ class _VideoContentState extends StoryContentState<VideoContent> {
     }
 
     if (_videoController?.value.isInitialized == true) {
-      return Center(
+      return Container(
+        color: const Color(0xff101010),
+        alignment: Alignment.center,
         child: AspectRatio(
-          aspectRatio: _videoController!.value.aspectRatio,
-          child: VideoPlayer(_videoController!),
-        ),
+            aspectRatio: _videoController!.value.aspectRatio,
+            child: VideoPlayer(_videoController!)
+            ),
       );
     }
 
