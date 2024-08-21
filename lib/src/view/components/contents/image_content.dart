@@ -83,6 +83,7 @@ class _ImageContentState extends StoryContentState<ImageContent> {
 
     if (_imageProvider != null) {
       return Container(
+        color: const Color(0xff101010),
         constraints: const BoxConstraints.expand(),
         child: Image(
           image: _imageProvider!,
@@ -94,7 +95,7 @@ class _ImageContentState extends StoryContentState<ImageContent> {
                     duration: const Duration(milliseconds: 300),
                   );
           },
-          fit: BoxFit.cover,
+          fit: BoxFit.fitWidth,
           gaplessPlayback: true,
         ),
       );
